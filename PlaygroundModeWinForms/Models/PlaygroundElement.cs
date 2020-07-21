@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PlaygroundModeWinForms.Models
 {
-    abstract class PlaygroundElement : IInformative, IHavingHistory
+    abstract class PlaygroundElement : IInformative, IHavingHistory, IRandomlyDistributed
     {
         public string Name { get; protected set; } // Качеля, горка и т.п.
         public int Capacity { get; protected set; } // Сколько человек может находиться на элементе одновременно
@@ -19,5 +19,6 @@ namespace PlaygroundModeWinForms.Models
         }
 
         public abstract string GetInfo(); // Для получния информации об обЪекте для пользователя
+        public abstract double DistributionFunction(double x);
     }
 }

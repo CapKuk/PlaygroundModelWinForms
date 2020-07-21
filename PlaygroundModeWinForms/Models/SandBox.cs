@@ -8,6 +8,11 @@ namespace PlaygroundModeWinForms.Models
 {
     class SandBox : PlaygroundElement
     {
+        public override double DistributionFunction(double x)
+        {
+            throw new NotImplementedException();
+        }
+
         public override string GetInfo()
         {
             throw new NotImplementedException();
