@@ -46,7 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\History.cs" />
+    <Compile Include="Models\Interfaces\IHavingHistory.cs" />
+    <Compile Include="Models\Interfaces\IInformative.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Playground.cs" />
+    <Compile Include="Models\PlaygroundElement.cs" />
+    <Compile Include="Models\RockingSpring.cs" />
+    <Compile Include="Models\SandBox.cs" />
+    <Compile Include="Models\Slide.cs" />
+    <Compile Include="Models\Swing.cs" />
     <Compile Include="Presenters\PresenterController.cs" />
     <Compile Include="Views\Form1.cs">
       <SubType>Form</SubType>
