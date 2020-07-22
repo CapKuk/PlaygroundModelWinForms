@@ -13,12 +13,12 @@ namespace PlaygroundModeWinForms.Models
         public bool Free { get; protected set; } = true; // true - есть свободное место, false - нет
         public readonly History History = new History();
 
-        protected PlaygroundElement(int capacity)
+        protected PlaygroundElement(int capacity = 1)
         {
             Capacity = capacity;
         }
 
-        public List<Person> PeopleOnElementList { get; private set } = new List<Person>();
+        public List<Person> PeopleOnElementList { get; private set; } = new List<Person>();
 
         public void AddPersonOnElement(Person person)
         {

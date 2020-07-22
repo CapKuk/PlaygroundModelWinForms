@@ -8,7 +8,7 @@ namespace PlaygroundModeWinForms.Models
 {
     class Swing : PlaygroundElement
     {
-        public Swing(int capacity) : base(capacity)
+        public Swing(int capacity = 1) : base(capacity)
         {
             Name = "Качеля";
         }

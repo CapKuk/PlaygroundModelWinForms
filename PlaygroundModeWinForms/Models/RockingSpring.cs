@@ -8,7 +8,7 @@ namespace PlaygroundModeWinForms.Models
 {
     class RockingSpring : PlaygroundElement
     {
-        public RockingSpring(int capacity) : base(capacity)
+        public RockingSpring(int capacity = 1) : base(capacity)
         {
             Name = "Качалка на пружине";
         }

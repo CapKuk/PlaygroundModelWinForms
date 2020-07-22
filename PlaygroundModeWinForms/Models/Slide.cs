@@ -8,7 +8,7 @@ namespace PlaygroundModeWinForms.Models
 {
     class Slide : PlaygroundElement
     {
-        public Slide(int capacity) : base(capacity)
+        public Slide(int capacity = 1) : base(capacity)
         {
             Name = "Горка";
         }

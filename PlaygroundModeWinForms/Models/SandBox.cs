@@ -8,7 +8,7 @@ namespace PlaygroundModeWinForms.Models
 {
     class SandBox : PlaygroundElement
     {
-        public SandBox(int capacity) : base(capacity)
+        public SandBox(int capacity = 1) : base(capacity)
         {
             Name = "Песочница";
         }
