@@ -37,7 +37,19 @@ namespace PlaygroundModeWinForms.Models
             History.SaveStateInHistory(this);
         }
 
-        public abstract string GetInfo(); // Для получния информации об обЪекте для пользователя
+        public string GetInfo() // Для получния информации об обЪекте для пользователя
+        {
+            var text = $"Name: {Name}, Capacity: {PeopleOnElementList.Count}/{Capacity}, ";
+            if (Free)
+            {
+                text += "Free;";
+            }
+            else
+            {
+                text += "Busy;";
+            }
+            return text;
+        }
         public abstract double DistributionFunction(double x);
     }
 }

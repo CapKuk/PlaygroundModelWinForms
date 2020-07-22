@@ -48,7 +48,9 @@ namespace PlaygroundModeWinForms.Models
 
         public string GetInfo()
         {
-            throw new NotImplementedException();
+            var text = $"Count of people: {People}, Count of elements: {PLaygroundElements.Count};\n";
+            foreach (var element in PLaygroundElements) text += element.GetInfo() + "\n";
+            return text;
         }
 
         public void SaveStateInHistory()

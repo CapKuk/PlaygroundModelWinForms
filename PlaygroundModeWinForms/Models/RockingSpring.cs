@@ -29,10 +29,5 @@ namespace PlaygroundModeWinForms.Models
             }
             return -1;
         }
-
-        public override string GetInfo()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
