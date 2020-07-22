@@ -8,6 +8,11 @@ namespace PlaygroundModeWinForms.Models
 {
     class RockingSpring : PlaygroundElement
     {
+        public RockingSpring(int capacity) : base(capacity)
+        {
+            Name = "Качалка на пружине";
+        }
+
         public override double DistributionFunction(double x)
         {
             if (x >= 0 && x < 3)

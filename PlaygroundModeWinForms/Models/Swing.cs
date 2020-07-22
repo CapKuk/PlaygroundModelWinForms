@@ -8,6 +8,11 @@ namespace PlaygroundModeWinForms.Models
 {
     class Swing : PlaygroundElement
     {
+        public Swing(int capacity) : base(capacity)
+        {
+            Name = "Качеля";
+        }
+
         public override double DistributionFunction(double x)
         {
             if (x >= 0 && x < 2)

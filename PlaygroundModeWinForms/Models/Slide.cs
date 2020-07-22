@@ -8,6 +8,11 @@ namespace PlaygroundModeWinForms.Models
 {
     class Slide : PlaygroundElement
     {
+        public Slide(int capacity) : base(capacity)
+        {
+            Name = "Горка";
+        }
+
         public override double DistributionFunction(double x)
         {
             if (x >= 0 && x < 2)

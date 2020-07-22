@@ -8,6 +8,11 @@ namespace PlaygroundModeWinForms.Models
 {
     class SandBox : PlaygroundElement
     {
+        public SandBox(int capacity) : base(capacity)
+        {
+            Name = "Песочница";
+        }
+
         public override double DistributionFunction(double x)
         {
             if (x >= 0 && x < 5.5)
