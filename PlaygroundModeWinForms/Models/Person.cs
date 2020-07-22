@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace PlaygroundModeWinForms.Models
 {
-    class Person : IInformative, IRandomlyDistributed
+    class Person : IInformative
     {
         public string GetInfo()
         {
             throw new NotImplementedException();
         }
 
-        public double DistributionFunction(double x)
+        public static double DistributionFunction(double x)
         {
             if (x >= 0 && x < 2)
             {

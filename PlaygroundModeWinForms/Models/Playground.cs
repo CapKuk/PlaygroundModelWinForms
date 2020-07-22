@@ -11,6 +11,7 @@ namespace PlaygroundModeWinForms.Models
         private readonly List<PlaygroundElement> PLaygroundElements = new List<PlaygroundElement>();
         private readonly History History = new History();
         private Time Time;
+        private int People = 0;
 
         public Playground(ushort Duration, Dictionary<Elements, int> ElementsCounts)
         {
@@ -58,7 +59,48 @@ namespace PlaygroundModeWinForms.Models
         public void Simulate(double step)
         {
             Time.TimeNow += step;
-            // симуляция 1 итерации модели
+            #region Симуляция 1 итерации модели
+            ChangePeopleOnPlayground();
+            #endregion
+        }
+
+        private void ChangePeopleOnPlayground()
+        {
+            List<Person> ReservePeople = new List<Person>();
+            int PeopleMustBe;
+            int RemovablePeole;
+            foreach (var elem in PLaygroundElements)
+            {
+                PeopleMustBe = (int)Math.Round(elem.DistributionFunction(Time.TimeNow));
+                if (elem.PeopleOnElementList.Count > PeopleMustBe)
+                {
+                    for (var i = 0; i < elem.PeopleOnElementList.Count - PeopleMustBe; i++)
+                    {
+                        RemovablePeole = Globals.Random.Next(0, elem.PeopleOnElementList.Count - 1);
+                        ReservePeople.Add(elem.PeopleOnElementList[RemovablePeole]);
+                        elem.PeopleOnElementList.RemoveAt(RemovablePeole);
+                        People--;
+                    }
+                }
+                else
+                {
+                    for (var i = 0; i < PeopleMustBe - elem.PeopleOnElementList.Count; i++)
+                    {
+                        if (elem.Capacity == elem.PeopleOnElementList.Count) continue;
+                        if (ReservePeople.Count > 0)
+                        {
+                            RemovablePeole = Globals.Random.Next(0, ReservePeople.Count - 1);
+                            elem.PeopleOnElementList.Add(ReservePeople[RemovablePeole]);
+                            ReservePeople.RemoveAt(RemovablePeole);
+                        }
+                        else
+                        {
+                            elem.PeopleOnElementList.Add(new Person());
+                        }
+                        People++;
+                    }
+                }
+            }
         }
     }
 }

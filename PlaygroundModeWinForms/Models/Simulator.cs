@@ -10,6 +10,11 @@ namespace PlaygroundModeWinForms.Models
     {
         private double Step;
 
+        public Simulator(double step)
+        {
+            Step = step;
+        }
+
         public void SimulateOneTimeSlot(IFeigned feigned)
         {
             feigned.Simulate(Step);
