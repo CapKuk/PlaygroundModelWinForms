@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Elements.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\Interfaces\IFeigned.cs" />
     <Compile Include="Models\Interfaces\IHavingHistory.cs" />

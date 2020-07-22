@@ -8,9 +8,11 @@ namespace PlaygroundModeWinForms.Models
 {
     class Simulator
     {
-        public static void SimulateOneTimeSlot(IFeigned feigned)
+        private double Step;
+
+        public void SimulateOneTimeSlot(IFeigned feigned)
         {
-            feigned.Simulate();
+            feigned.Simulate(Step);
         }
     }
 }

@@ -8,12 +8,12 @@ namespace PlaygroundModeWinForms.Models
 {
     class Time
     {
-        public Time(uint duration)
+        public Time(ushort duration)
         {
             Duration = duration;
         }
 
-        public uint TimeNow { get; set; }
-        public uint Duration { get; private set; }
+        public double TimeNow { get; set; }
+        public ushort Duration { get; private set; }
     }
 }
