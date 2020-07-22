@@ -25,6 +25,8 @@ namespace PlaygroundModeWinForms
             TestPersonDistributionFunction();
             TestRockingSpringDistributionFunction();
             TestSlideDistributionFunction();
+            TestSwingDistributionFunction();
+            TestSandboxDistributionFunction();
         }
 
         private void TestPersonDistributionFunction()
@@ -58,6 +60,28 @@ namespace PlaygroundModeWinForms
             chart1.Series[name].ChartType = SeriesChartType.Line;
             chart1.Series[name].Color = Color.Red;
             for (double i = 1; i < 17; i += 0.001) chart1.Series[name].Points.AddXY(i, obj.DistributionFunction(i));
+        }
+
+        private void TestSwingDistributionFunction()
+        {
+            var name = "Качели";
+            var obj = new Swing();
+            chart4.Series[0].IsVisibleInLegend = false;
+            chart4.Series.Add(name);
+            chart4.Series[name].ChartType = SeriesChartType.Line;
+            chart4.Series[name].Color = Color.Red;
+            for (double i = 1; i < 17; i += 0.001) chart4.Series[name].Points.AddXY(i, obj.DistributionFunction(i));
+        }
+
+        private void TestSandboxDistributionFunction()
+        {
+            var name = "Песочница";
+            var obj = new SandBox();
+            chart5.Series[0].IsVisibleInLegend = false;
+            chart5.Series.Add(name);
+            chart5.Series[name].ChartType = SeriesChartType.Line;
+            chart5.Series[name].Color = Color.Red;
+            for (double i = 1; i < 17; i += 0.001) chart5.Series[name].Points.AddXY(i, obj.DistributionFunction(i));
         }
     }
 }
