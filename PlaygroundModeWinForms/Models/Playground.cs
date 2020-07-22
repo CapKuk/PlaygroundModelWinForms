@@ -13,29 +13,29 @@ namespace PlaygroundModeWinForms.Models
         private Time Time;
         private int People = 0;
 
-        public Playground(ushort Duration, Dictionary<Elements, int> ElementsCounts)
+        public Playground(ushort Duration, Dictionary<Elements,  (int, int)> ElementsCounts)
         {
             InitPlaygroundElements(ElementsCounts);
             InitTime(Duration);
         }
 
-        private void InitPlaygroundElements(Dictionary<Elements, int> elements)
+        private void InitPlaygroundElements(Dictionary<Elements, (int, int)> elements)
         {
             foreach (var elem in elements)
             {
                 switch (elem.Key)
                 {
                     case Elements.Slide:
-                        for (var i = 0; i < elem.Value; i++) PLaygroundElements.Add(new Slide());
+                        for (var i = 0; i < elem.Value.Item2; i++) PLaygroundElements.Add(new Slide(elem.Value.Item1));
                         break;
                     case Elements.Swing:
-                        for (var i = 0; i < elem.Value; i++) PLaygroundElements.Add(new Swing());
+                        for (var i = 0; i < elem.Value.Item2; i++) PLaygroundElements.Add(new Swing(elem.Value.Item1));
                         break;
                     case Elements.SandBox:
-                        for (var i = 0; i < elem.Value; i++) PLaygroundElements.Add(new SandBox());
+                        for (var i = 0; i < elem.Value.Item2; i++) PLaygroundElements.Add(new SandBox(elem.Value.Item1));
                         break;
                     case Elements.RockingSpring:
-                        for (var i = 0; i < elem.Value; i++) PLaygroundElements.Add(new RockingSpring());
+                        for (var i = 0; i < elem.Value.Item2; i++) PLaygroundElements.Add(new RockingSpring(elem.Value.Item1));
                         break;
                 }
             }

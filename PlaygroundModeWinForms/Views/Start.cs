@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PlaygroundModeWinForms.Views
+namespace PlaygroundModeWinForms
 {
     public partial class Start : Form
     {
