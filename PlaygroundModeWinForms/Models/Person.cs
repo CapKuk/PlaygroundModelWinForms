@@ -13,7 +13,7 @@ namespace PlaygroundModeWinForms.Models
             throw new NotImplementedException();
         }
 
-        public static double DistributionFunction(double x)
+        public double DistributionFunction(double x)
         {
             if (x >= 0 && x < 2)
             {
