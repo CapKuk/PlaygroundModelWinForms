@@ -9,15 +9,27 @@ namespace PlaygroundModeWinForms.Models
     class Simulator
     {
         private double Step;
+        private IFeigned feigned;
 
-        public Simulator(double step)
+        public static event Action<int> HistoryStateCountChanged;
+
+        public Simulator(double step, IFeigned feigned)
         {
             Step = step;
+            this.feigned = feigned;
         }
 
-        public void SimulateOneTimeSlot(IFeigned feigned)
+        public (List<Dictionary<Elements, double>>, Dictionary<Elements, History>) SimulateModel()
         {
-            feigned.Simulate(Step);
+            for (double i = 0; i <= 17; i += Step) feigned.Simulate(Step);
+            HistoryStateCountChanged(feigned.HistoryStateCount);
+            return feigned.GetResult();
+        }
+
+        public (List<Dictionary<Elements, double>>, Dictionary<Elements, History>) RollbackInTime(int time)
+        {
+            feigned.RestoreMemento(time);
+            return feigned.GetResult();
         }
     }
 }

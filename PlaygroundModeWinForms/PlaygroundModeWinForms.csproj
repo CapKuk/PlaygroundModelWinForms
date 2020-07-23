@@ -53,8 +53,8 @@
     <Compile Include="Models\Interfaces\IFeigned.cs" />
     <Compile Include="Models\Interfaces\IHavingHistory.cs" />
     <Compile Include="Models\Interfaces\IInformative.cs" />
+    <Compile Include="Models\Interfaces\IMemento.cs" />
     <Compile Include="Models\Interfaces\IRandomlyDistributed.cs" />
-    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Playground.cs" />
     <Compile Include="Models\PlaygroundElement.cs" />
     <Compile Include="Models\PlaygroundElementMemento.cs" />

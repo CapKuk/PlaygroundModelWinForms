@@ -9,7 +9,8 @@ namespace PlaygroundModeWinForms.Presenters
 {
     class StartPresenter : IPresenter
     {
-        public static event Action Redirect;
+
+        public static event Action ModelStart;
 
         public StartPresenter()
         {
@@ -18,12 +19,12 @@ namespace PlaygroundModeWinForms.Presenters
 
         private void MakeBindings()
         {
-            Start.StartButtonDown += Redirection;
+            Start.StartButtonDown += StartAndRedirection;
         }
 
-        private void Redirection()
+        private void StartAndRedirection()
         {
-            Redirect();
+            ModelStart();
         }
 
         public void Run()

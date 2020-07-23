@@ -11,26 +11,14 @@ namespace PlaygroundModeWinForms.Models
         public string Name { get; protected set; } // Качеля, горка и т.п.
         public int Capacity { get; protected set; } // Сколько человек может находиться на элементе одновременно
         public bool Free { get; protected set; } = true; // true - есть свободное место, false - нет
-        public readonly History History = new History();
+        public History History { get; private set; } = new History();
 
         protected PlaygroundElement(int capacity = 1)
         {
             Capacity = capacity;
         }
 
-        public List<Person> PeopleOnElementList { get; private set; } = new List<Person>();
-
-        public void AddPersonOnElement(Person person)
-        {
-            if (PeopleOnElementList.Count == Capacity)
-            {
-                throw new Exception("Lack of space on the element");
-            }
-            else
-            {
-                PeopleOnElementList.Add(person);
-            }
-        }
+        public int PeopleOnElement = 0;
 
         public void SaveStateInHistory()
         {
@@ -40,19 +28,21 @@ namespace PlaygroundModeWinForms.Models
         public void RestoreMemento(PlaygroundElementMemento memento)
         {
             Free = memento.Free;
-            PeopleOnElementList = memento.PeopleOnElementList;
+            PeopleOnElement = memento.PeopleOnElement;
+            this.History = History;
         }
 
         public string GetInfo() // Для получния информации об объекте для пользователя
         {
-            var text = $"Name: {Name}, Capacity: {PeopleOnElementList.Count}/{Capacity}, ";
+            Free = Capacity > PeopleOnElement;
+            var text = $"Name: {Name}, Capacity: {PeopleOnElement}/{Capacity}, ";
             if (Free)
             {
-                text += "Free;";
+                text += "Free;\n";
             }
             else
             {
-                text += "Busy;";
+                text += "Busy;\n";
             }
             return text;
         }

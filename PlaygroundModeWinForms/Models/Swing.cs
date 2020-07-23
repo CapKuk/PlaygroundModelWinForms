@@ -35,7 +35,7 @@ namespace PlaygroundModeWinForms.Models
             {
                 return Math.Pow(Math.E, (-Math.Pow((x - 12), 2) / 2 * 1.6 * 1.6)) / (0.2 * Math.Sqrt(2 * Math.PI));
             }
-            else if (x >= 13 && x < 17)
+            else if (x >= 13 && x <= 17)
             {
                 return 1 - 3 * Math.Pow(Math.E, (-3 * (-x + 17.4)));
             }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlaygroundModeWinForms.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,9 @@ namespace PlaygroundModeWinForms.Presenters
 {
     class PresenterController : IPresenter
     {
+        public StartPresenter StartPresenter = new StartPresenter();
+        public ModelPresenter ModelPresenter = new ModelPresenter();
+
         public PresenterController()
         {
             MakeBindings();
@@ -15,17 +19,22 @@ namespace PlaygroundModeWinForms.Presenters
 
         private void MakeBindings()
         {
-            StartPresenter.Redirect += RunModelPresenter;
+            StartPresenter.ModelStart += StartSimulator;
+        }
+
+        private void StartSimulator()
+        {
+            RunModelPresenter();
         }
 
         public void Run()
         {
-            new StartPresenter().Run();
+            StartPresenter.Run();
         }
 
         private void RunModelPresenter()
         {
-            new ModelPresenter().Run();
+            ModelPresenter.Run();
         }
     }
 }

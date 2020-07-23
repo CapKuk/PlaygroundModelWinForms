@@ -10,7 +10,7 @@ namespace PlaygroundModeWinForms.Models
     {
         public RockingSpring(int capacity = 1) : base(capacity)
         {
-            Name = "Качалка на пружине";
+            Name = "Пружина";
         }
 
         public override double DistributionFunction(double x)
@@ -23,7 +23,7 @@ namespace PlaygroundModeWinForms.Models
             {
                 return Math.Pow(Math.E, (-Math.Pow((x - 10), 2) / (2 * 0.17))) / (0.28 * 2 * Math.Sqrt(Math.PI));
             }
-            else if (x >= 11.5 && x < 17)
+            else if (x >= 11.5 && x <= 17)
             {
                 return Math.Pow(Math.E, (-Math.Pow((x - 13), 2) / (2 * 0.17))) / (0.28 * 2 * Math.Sqrt(Math.PI));
             }

@@ -8,63 +8,50 @@ namespace PlaygroundModeWinForms.Models
 {
     class Playground : IInformative, IHavingHistory, IFeigned
     {
-        private readonly List<PlaygroundElement> PlaygroundElements = new List<PlaygroundElement>();
-        private readonly History History = new History();
+        private Dictionary<Elements, PlaygroundElement> PlaygroundElements = new Dictionary<Elements, PlaygroundElement>();
+        private Dictionary<Elements, History> History = new Dictionary<Elements, History>();
         private PlaygroundHistory StateHistory = new PlaygroundHistory();
         private Time Time;
         private int People = 0;
+        private List<Dictionary<Elements, double>> Data = new List<Dictionary<Elements, double>>();
+        public int HistoryStateCount { get; set; } = 0;
 
-        public Playground(ushort Duration, Dictionary<Elements,  (int, int)> ElementsCounts)
+        public Playground()
         {
-            InitPlaygroundElements(ElementsCounts);
-            InitTime(Duration);
+            InitPlaygroundElements();
+            InitTime();
+            InitHistory();
         }
 
-        private void InitPlaygroundElements(Dictionary<Elements, (int, int)> elements)
+        private void InitPlaygroundElements()
         {
-            foreach (var elem in elements)
-            {
-                switch (elem.Key)
-                {
-                    case Elements.Slide:
-                        for (var i = 0; i < elem.Value.Item2; i++) PlaygroundElements.Add(new Slide(elem.Value.Item1));
-                        break;
-                    case Elements.Swing:
-                        for (var i = 0; i < elem.Value.Item2; i++) PlaygroundElements.Add(new Swing(elem.Value.Item1));
-                        break;
-                    case Elements.SandBox:
-                        for (var i = 0; i < elem.Value.Item2; i++) PlaygroundElements.Add(new SandBox(elem.Value.Item1));
-                        break;
-                    case Elements.RockingSpring:
-                        for (var i = 0; i < elem.Value.Item2; i++) PlaygroundElements.Add(new RockingSpring(elem.Value.Item1));
-                        break;
-                }
-            }
+            PlaygroundElements.Add(Elements.Swing, new Swing(2));
+            PlaygroundElements.Add(Elements.Slide, new Slide(1));
+            PlaygroundElements.Add(Elements.SandBox, new SandBox(1));
+            PlaygroundElements.Add(Elements.RockingSpring, new RockingSpring(1));
         }
 
-        private void InitTime(ushort Duration)
+        private void InitHistory()
         {
-            Time = new Time(Duration);
+            foreach (var elem in PlaygroundElements) History.Add(elem.Key, elem.Value.History);
         }
 
-        public string GetInfo()
+        private void InitTime()
         {
-            var text = $"Count of people: {People}, Count of elements: {PlaygroundElements.Count};\n";
-            foreach (var element in PlaygroundElements) text += element.GetInfo() + "\n";
-            return text;
+            Time = new Time(17);
         }
 
         public void SaveStateInHistory()
         {
-            History.SaveStateInHistory(this);
+            foreach (var elem in PlaygroundElements) elem.Value.SaveStateInHistory();
         }
 
         private void SaveMementoInHistory() // Save Memento of Playground in StateHistory
         {
-            StateHistory.SavePlayground(PlaygroundElements, Time, People);
+            StateHistory.SavePlayground(PlaygroundElements, Time, People, Data);
         }
 
-        private void RestoreMemento(int index) // Restore Memento by index of StateHistory
+        public void RestoreMemento(int index) // Restore Memento by index of StateHistory
         {
             if (index >= StateHistory.History.Count)
             {
@@ -73,9 +60,11 @@ namespace PlaygroundModeWinForms.Models
             var memento = StateHistory.RestorePlayground(index);
             Time = memento.Time;
             People = memento.People;
-            for (int i = 0; i < PlaygroundElements.Count; i++)
+            Data = memento.Data;
+            History = memento.History;
+            foreach (var i in PlaygroundElements)
             {
-                PlaygroundElements[i].RestoreMemento(memento.PlaygroundElementMementos[i]);
+                i.Value.RestoreMemento(memento.PlaygroundElementMementos[i.Key]);
             }
         }
 
@@ -83,58 +72,75 @@ namespace PlaygroundModeWinForms.Models
         {
             Time = memento.Time;
             People = memento.People;
-            for (int i = 0; i < PlaygroundElements.Count; i++)
+            foreach (var i in PlaygroundElements)
             {
-                PlaygroundElements[i].RestoreMemento(memento.PlaygroundElementMementos[i]);
+                i.Value.RestoreMemento(memento.PlaygroundElementMementos[i.Key]);
             }
         }
 
         public void Simulate(double step)
         {
-            Time.TimeNow += step;
             #region Симуляция 1 итерации модели
             ChangePeopleOnPlayground();
+
+            var data = new Dictionary<Elements, double>();
+            data.Add(Elements.Time, Time.TimeNow);
+            data.Add(Elements.Slide, PlaygroundElements[Elements.Slide].PeopleOnElement);
+            data.Add(Elements.Swing, PlaygroundElements[Elements.Swing].PeopleOnElement);
+            data.Add(Elements.SandBox, PlaygroundElements[Elements.SandBox].PeopleOnElement);
+            data.Add(Elements.RockingSpring, PlaygroundElements[Elements.RockingSpring].PeopleOnElement);
+            Data.Add(data);
+
+            SaveStateInHistory();
+
             SaveMementoInHistory();
+            ChangeHistoryStateCount();
             #endregion
+            Time.TimeNow += step;
         }
 
         private void ChangePeopleOnPlayground()
         {
-            List<Person> ReservePeople = new List<Person>();
             int PeopleMustBe;
             int RemovablePeople;
             foreach (var elem in PlaygroundElements)
             {
-                PeopleMustBe = (int)Math.Round(elem.DistributionFunction(Time.TimeNow));
-                if (elem.PeopleOnElementList.Count > PeopleMustBe)
+                PeopleMustBe = (int)Math.Round(elem.Value.DistributionFunction(Time.TimeNow));
+                if (elem.Value.PeopleOnElement > PeopleMustBe)
                 {
-                    for (var i = 0; i < elem.PeopleOnElementList.Count - PeopleMustBe; i++)
+                    for (var i = 0; i < elem.Value.PeopleOnElement - PeopleMustBe; i++)
                     {
-                        RemovablePeople = Globals.Random.Next(0, elem.PeopleOnElementList.Count - 1);
-                        ReservePeople.Add(elem.PeopleOnElementList[RemovablePeople]);
-                        elem.PeopleOnElementList.RemoveAt(RemovablePeople);
+                        RemovablePeople = Globals.Random.Next(0, elem.Value.PeopleOnElement - 1);
+                        elem.Value.PeopleOnElement--;
                         People--;
                     }
                 }
                 else
                 {
-                    for (var i = 0; i < PeopleMustBe - elem.PeopleOnElementList.Count; i++)
+                    for (var i = 0; i < PeopleMustBe - elem.Value.PeopleOnElement; i++)
                     {
-                        if (elem.Capacity == elem.PeopleOnElementList.Count) continue;
-                        if (ReservePeople.Count > 0)
-                        {
-                            RemovablePeople = Globals.Random.Next(0, ReservePeople.Count - 1);
-                            elem.PeopleOnElementList.Add(ReservePeople[RemovablePeople]);
-                            ReservePeople.RemoveAt(RemovablePeople);
-                        }
-                        else
-                        {
-                            elem.PeopleOnElementList.Add(new Person());
-                        }
+                        if (elem.Value.Capacity == elem.Value.PeopleOnElement) continue;
+
+                        elem.Value.PeopleOnElement++;
                         People++;
                     }
                 }
             }
         }
+
+        public string GetInfo()
+        {
+            return $"Count of people: {People}, Count of elements: {PlaygroundElements.Count};\n";
+        }
+
+        public (List<Dictionary<Elements, double>>, Dictionary<Elements, History>) GetResult()
+        {
+            return (Data, History);
+        }
+
+        private void ChangeHistoryStateCount()
+        {
+            HistoryStateCount = StateHistory.History.Count;
+        } 
     }
 }

@@ -9,12 +9,14 @@ namespace PlaygroundModeWinForms.Models
     class PlaygroundElementMemento
     {
         public bool Free { get; protected set; }
-        public List<Person> PeopleOnElementList { get; private set; }
+        public int PeopleOnElement { get; private set; }
+        public History History { get; private set; }
 
         public PlaygroundElementMemento(PlaygroundElement playgroundElement)
         {
             Free = playgroundElement.Free;
-            PeopleOnElementList = playgroundElement.PeopleOnElementList;
+            PeopleOnElement = playgroundElement.PeopleOnElement;
+            History = playgroundElement.History;
         }
     }
 }

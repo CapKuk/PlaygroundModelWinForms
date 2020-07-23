@@ -4,14 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PlaygroundModeWinForms
+namespace PlaygroundModeWinForms.Models.Interfaces
 {
-    enum Elements
+    interface IMemento
     {
-        Slide,
-        SandBox,
-        RockingSpring,
-        Swing,
-        Time
+        void RestoreMemento(int index);
     }
 }

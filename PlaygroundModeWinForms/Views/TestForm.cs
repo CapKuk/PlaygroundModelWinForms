@@ -22,22 +22,10 @@ namespace PlaygroundModeWinForms
 
         private void Test()
         {
-            TestPersonDistributionFunction();
             TestRockingSpringDistributionFunction();
             TestSlideDistributionFunction();
             TestSwingDistributionFunction();
             TestSandboxDistributionFunction();
-        }
-
-        private void TestPersonDistributionFunction()
-        {
-            var name = "Человек";
-            var obj = new Person();
-            chart3.Series[0].IsVisibleInLegend = false;
-            chart3.Series.Add(name);
-            chart3.Series[name].ChartType = SeriesChartType.Line;
-            chart3.Series[name].Color = Color.Red;
-            for (double i = 1; i < 17; i += 0.001) chart3.Series[name].Points.AddXY(i, obj.DistributionFunction(i));
         }
 
         private void TestRockingSpringDistributionFunction()

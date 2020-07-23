@@ -13,7 +13,7 @@ namespace PlaygroundModeWinForms.Models
             Duration = duration;
         }
 
-        public double TimeNow { get; set; }
+        public double TimeNow { get; set; } = 0;
         public ushort Duration { get; private set; }
     }
 }
