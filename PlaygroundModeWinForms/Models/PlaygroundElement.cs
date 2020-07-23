@@ -37,7 +37,13 @@ namespace PlaygroundModeWinForms.Models
             History.SaveStateInHistory(this);
         }
 
-        public string GetInfo() // Для получния информации об обЪекте для пользователя
+        public void RestoreMemento(PlaygroundElementMemento memento)
+        {
+            Free = memento.Free;
+            PeopleOnElementList = memento.PeopleOnElementList;
+        }
+
+        public string GetInfo() // Для получния информации об объекте для пользователя
         {
             var text = $"Name: {Name}, Capacity: {PeopleOnElementList.Count}/{Capacity}, ";
             if (Free)

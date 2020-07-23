@@ -57,6 +57,9 @@
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Playground.cs" />
     <Compile Include="Models\PlaygroundElement.cs" />
+    <Compile Include="Models\PlaygroundElementMemento.cs" />
+    <Compile Include="Models\PlaygroundHistory.cs" />
+    <Compile Include="Models\PlaygroundMemento.cs" />
     <Compile Include="Models\RockingSpring.cs" />
     <Compile Include="Models\SandBox.cs" />
     <Compile Include="Models\Simulator.cs" />
