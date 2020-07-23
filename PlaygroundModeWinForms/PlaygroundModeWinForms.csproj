@@ -63,7 +63,16 @@
     <Compile Include="Models\Slide.cs" />
     <Compile Include="Models\Swing.cs" />
     <Compile Include="Models\Time.cs" />
+    <Compile Include="Presenters\IPresenter.cs" />
+    <Compile Include="Presenters\ModelPresenter.cs" />
     <Compile Include="Presenters\PresenterController.cs" />
+    <Compile Include="Presenters\StartPresenter.cs" />
+    <Compile Include="Views\ModelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ModelForm.Designer.cs">
+      <DependentUpon>ModelForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Start.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +96,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\ModelForm.resx">
+      <DependentUpon>ModelForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Start.resx">
       <DependentUpon>Start.cs</DependentUpon>
     </EmbeddedResource>

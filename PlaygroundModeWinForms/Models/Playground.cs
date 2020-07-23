@@ -70,7 +70,7 @@ namespace PlaygroundModeWinForms.Models
         {
             List<Person> ReservePeople = new List<Person>();
             int PeopleMustBe;
-            int RemovablePeole;
+            int RemovablePeople;
             foreach (var elem in PLaygroundElements)
             {
                 PeopleMustBe = (int)Math.Round(elem.DistributionFunction(Time.TimeNow));
@@ -78,9 +78,9 @@ namespace PlaygroundModeWinForms.Models
                 {
                     for (var i = 0; i < elem.PeopleOnElementList.Count - PeopleMustBe; i++)
                     {
-                        RemovablePeole = Globals.Random.Next(0, elem.PeopleOnElementList.Count - 1);
-                        ReservePeople.Add(elem.PeopleOnElementList[RemovablePeole]);
-                        elem.PeopleOnElementList.RemoveAt(RemovablePeole);
+                        RemovablePeople = Globals.Random.Next(0, elem.PeopleOnElementList.Count - 1);
+                        ReservePeople.Add(elem.PeopleOnElementList[RemovablePeople]);
+                        elem.PeopleOnElementList.RemoveAt(RemovablePeople);
                         People--;
                     }
                 }
@@ -91,9 +91,9 @@ namespace PlaygroundModeWinForms.Models
                         if (elem.Capacity == elem.PeopleOnElementList.Count) continue;
                         if (ReservePeople.Count > 0)
                         {
-                            RemovablePeole = Globals.Random.Next(0, ReservePeople.Count - 1);
-                            elem.PeopleOnElementList.Add(ReservePeople[RemovablePeole]);
-                            ReservePeople.RemoveAt(RemovablePeole);
+                            RemovablePeople = Globals.Random.Next(0, ReservePeople.Count - 1);
+                            elem.PeopleOnElementList.Add(ReservePeople[RemovablePeople]);
+                            ReservePeople.RemoveAt(RemovablePeople);
                         }
                         else
                         {

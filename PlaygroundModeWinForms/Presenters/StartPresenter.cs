@@ -3,29 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PlaygroundModeWinForms.Presenters
 {
-    class PresenterController : IPresenter
+    class StartPresenter : IPresenter
     {
-        public PresenterController()
+        public static event Action Redirect;
+
+        public StartPresenter()
         {
             MakeBindings();
         }
 
         private void MakeBindings()
         {
-            StartPresenter.Redirect += RunModelPresenter;
+            Start.StartButtonDown += Redirection;
+        }
+
+        private void Redirection()
+        {
+            Redirect();
         }
 
         public void Run()
         {
-            new StartPresenter().Run();
-        }
-
-        private void RunModelPresenter()
-        {
-            new ModelPresenter().Run();
+            Application.Run(new Start());
         }
     }
 }

@@ -8,21 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PlaygroundModeWinForms
+namespace PlaygroundModeWinForms.Views
 {
-    public partial class Start : Form
+    public partial class ModelForm : Form
     {
-
-        public static event Action StartButtonDown;
-
-        public Start()
+        public ModelForm()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            StartButtonDown();
+            label3.Text = trackBar1.Value.ToString();
         }
     }
 }

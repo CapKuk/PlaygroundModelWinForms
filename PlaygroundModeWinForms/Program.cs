@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlaygroundModeWinForms.Presenters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace PlaygroundModeWinForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Start());
+            new PresenterController().Run();
         }
     }
 }
