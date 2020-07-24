@@ -101,30 +101,18 @@ namespace PlaygroundModeWinForms.Models
 
         private void ChangePeopleOnPlayground()
         {
-            int PeopleMustBe;
-            int RemovablePeople;
+            double PeopleMustBe;
+            int newPeople;
             foreach (var elem in PlaygroundElements)
             {
-                PeopleMustBe = (int)Math.Round(elem.Value.DistributionFunction(Time.TimeNow));
-                if (elem.Value.PeopleOnElement > PeopleMustBe)
-                {
-                    for (var i = 0; i < elem.Value.PeopleOnElement - PeopleMustBe; i++)
-                    {
-                        RemovablePeople = Globals.Random.Next(0, elem.Value.PeopleOnElement - 1);
-                        elem.Value.PeopleOnElement--;
-                        People--;
-                    }
-                }
-                else
-                {
-                    for (var i = 0; i < PeopleMustBe - elem.Value.PeopleOnElement; i++)
-                    {
-                        if (elem.Value.Capacity == elem.Value.PeopleOnElement) continue;
+                PeopleMustBe = elem.Value.DistributionFunction(Time.TimeNow) + 0.5;
 
-                        elem.Value.PeopleOnElement++;
-                        People++;
-                    }
-                }
+                if (elem.Value.PeopleOnElement == (int)Math.Round(PeopleMustBe + 0.5)) continue;
+
+                newPeople = Globals.Random.Next(0, (int)Math.Round(PeopleMustBe));
+                if (elem.Value.Capacity < newPeople) continue;
+                People -= elem.Value.PeopleOnElement - newPeople;
+                elem.Value.PeopleOnElement = newPeople;
             }
         }
 

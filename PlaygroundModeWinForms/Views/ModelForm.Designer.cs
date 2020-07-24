@@ -102,7 +102,6 @@
             this.RockingSpringChart.Location = new System.Drawing.Point(821, 310);
             this.RockingSpringChart.Name = "RockingSpringChart";
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedArea;
             series1.Legend = "Legend1";
             series1.Name = "Качалка на пружине";
             this.RockingSpringChart.Series.Add(series1);
@@ -119,7 +118,6 @@
             this.SandBoxChart.Location = new System.Drawing.Point(821, 39);
             this.SandBoxChart.Name = "SandBoxChart";
             series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedArea;
             series2.Legend = "Legend1";
             series2.Name = "Песочница";
             this.SandBoxChart.Series.Add(series2);
@@ -136,7 +134,6 @@
             this.SwingChart.Location = new System.Drawing.Point(5, 310);
             this.SwingChart.Name = "SwingChart";
             series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedArea;
             series3.Legend = "Legend1";
             series3.Name = "Качеля";
             this.SwingChart.Series.Add(series3);
@@ -153,7 +150,7 @@
             this.SlideChart.Location = new System.Drawing.Point(15, 39);
             this.SlideChart.Name = "SlideChart";
             series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedArea;
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
             series4.Legend = "Legend1";
             series4.Name = "Горка";
             this.SlideChart.Series.Add(series4);
